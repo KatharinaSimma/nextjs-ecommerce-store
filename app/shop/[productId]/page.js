@@ -25,8 +25,8 @@ export default function ProductPage({ params }) {
         <Image
           src={`/productImages/M${singleProduct.part}.webp`}
           alt={singleProduct.name}
-          width="200"
-          height="200"
+          width="100"
+          height="100"
         />
       </main>
     </div>
