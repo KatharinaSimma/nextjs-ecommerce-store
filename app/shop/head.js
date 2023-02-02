@@ -1,4 +1,4 @@
-export default function AnimalsHead() {
+export default function ShopHead() {
   // This may change in the future
   return (
     <>
