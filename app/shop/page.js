@@ -11,14 +11,17 @@ export default function productsPage() {
         {products.map((product) => {
           return (
             <div className={styles.productCard} key={product.id}>
-              <Link href={`/shop/${product.part}`}>
+              <Link
+                data-test-id={`product-${product.id}`}
+                href={`/shop/${product.part}`}
+              >
                 <h2>{product.name}</h2>
                 <p>Part no. {product.part}</p>
                 <Image
                   src={`/productImages/${product.image}`}
-                  alt={product.type}
-                  width="100"
-                  height="100"
+                  alt={product.name}
+                  width="150"
+                  height="150"
                 />
               </Link>
             </div>

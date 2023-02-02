@@ -1,27 +1,3 @@
-.header {
-  border-bottom: 1px solid black;
-  display: flex;
-  justify-content: center;
-
-  nav {
-    border-radius: 6px;
-    margin: 20px 0;
-    padding: 15px;
-    display: flex;
-
-    & a + a,
-    span + a {
-      margin-left: 13px;
-    }
-
-    & div {
-      margin-right: auto;
-      display: flex;
-      gap: 6px;
-    }
-  }
-}
-
 .footer {
   border-radius: 6px;
   margin: 20px 0;
