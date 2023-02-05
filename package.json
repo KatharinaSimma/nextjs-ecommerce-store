@@ -10,7 +10,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/js-cookie": "^3.0.2",
     "js-cookie": "^3.0.1",
     "next": "13.1.6",
     "patch-package": "^6.5.1",
@@ -24,6 +23,7 @@
     "@next/eslint-plugin-next": "13.1.5",
     "@ts-safeql/eslint-plugin": "0.0.24",
     "@types/eslint": "8.4.10",
+    "@types/js-cookie": "^3.0.2",
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",

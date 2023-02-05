@@ -22,14 +22,14 @@ export default function ProductPage({ singleProduct }) {
       <button
         onClick={() => {
           const cartItemsCookie = getParsedCookie('cartItemCookie');
-          // there is no cookie at all -> set new cookie
+          // if there is no cookie at all -> set new cookie
           if (!cartItemsCookie) {
             setStringifiedCookie('cartItemCookie', [
               { id: singleProduct.id, amount: 1 },
             ]);
             return;
           }
-
+          // find the right item in the cookie
           const foundItem = cartItemsCookie.find((itemInCart) => {
             return itemInCart.id === singleProduct.id;
           });
@@ -39,7 +39,7 @@ export default function ProductPage({ singleProduct }) {
           } else {
             cartItemsCookie.push({ id: singleProduct.id, amount: 1 });
           }
-          // Update the cookie after transformation
+          // update the cookie after transformation
           setStringifiedCookie('cartItemCookie', cartItemsCookie);
         }}
       >

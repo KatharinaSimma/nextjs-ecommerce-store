@@ -15,5 +15,5 @@ export function getParsedCookie(key) {
 }
 
 export function setStringifiedCookie(key, value) {
-  Cookies.set(key, JSON.stringify(value));
+  Cookies.set(key, JSON.stringify(value), { expires: 365 });
 }
