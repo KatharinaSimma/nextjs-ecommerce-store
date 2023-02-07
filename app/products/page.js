@@ -13,7 +13,7 @@ export default function productsPage() {
             <div className={styles.productCard} key={product.id}>
               <Link
                 data-test-id={`product-${product.id}`}
-                href={`/shop/${product.part}`}
+                href={`/products/${product.id}`}
               >
                 <h2>{product.name}</h2>
                 <p>Part no. {product.part}</p>

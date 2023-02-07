@@ -1,10 +1,13 @@
 'use client';
 
 import Image from 'next/image';
+import { useState } from 'react';
 import { getParsedCookie, setStringifiedCookie } from '../../../utils/cookies';
 import styles from './page.module.scss';
 
 export default function ProductPage({ singleProduct }) {
+  const [productAmount, setProductAmount] = useState(1);
+
   return (
     <div className={styles.singleProductContainer}>
       <h1>{singleProduct.name}</h1>
@@ -17,15 +20,31 @@ export default function ProductPage({ singleProduct }) {
           alt={singleProduct.name}
           width="100"
           height="100"
+          data-test-id="product-image"
         />
+        <p>
+          Price/piece:{' '}
+          <span data-test-id="product-price">{singleProduct.price}</span>€
+        </p>
+        <button
+          disabled={productAmount <= 1}
+          onClick={() => setProductAmount(productAmount - 1)}
+        >
+          -1
+        </button>
+        <span>
+          Quantity: <span data-test-id="product-quantity">{productAmount}</span>
+        </span>
+        <button onClick={() => setProductAmount(productAmount + 1)}>+1</button>
       </main>
       <button
+        data-test-id="product-add-to-cart"
         onClick={() => {
           const cartItemsCookie = getParsedCookie('cartItemCookie');
           // if there is no cookie at all -> set new cookie
           if (!cartItemsCookie) {
             setStringifiedCookie('cartItemCookie', [
-              { id: singleProduct.id, amount: 1 },
+              { id: singleProduct.id, amount: productAmount },
             ]);
             return;
           }
@@ -35,9 +54,12 @@ export default function ProductPage({ singleProduct }) {
           });
 
           if (foundItem) {
-            foundItem.amount++;
+            foundItem.amount += productAmount;
           } else {
-            cartItemsCookie.push({ id: singleProduct.id, amount: 1 });
+            cartItemsCookie.push({
+              id: singleProduct.id,
+              amount: productAmount,
+            });
           }
           // update the cookie after transformation
           setStringifiedCookie('cartItemCookie', cartItemsCookie);

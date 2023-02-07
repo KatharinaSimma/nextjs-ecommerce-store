@@ -1,6 +1,6 @@
 'use client';
 
-// import Image from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { products } from '../../Database/products';
@@ -51,12 +51,12 @@ export function CartTable() {
               key={product.id}
               data-test-id={`cart-product-${product.id}`}
             >
-              {/* <Image
+              <Image
                 src={`/productImages/${product.image}`}
                 alt={product.name}
                 width="50"
                 height="50"
-              /> */}
+              />
               <span>{product.name}</span>
               <span>Part no. {product.part}</span>
               <span>{product.price.toFixed(2)}</span>

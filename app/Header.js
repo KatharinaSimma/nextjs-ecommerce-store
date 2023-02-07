@@ -15,6 +15,7 @@ export default function Header() {
               width={40}
               height={40}
               className={styles.logo}
+              alt="brickbase logo"
             />
           </Link>
           <Link
@@ -27,7 +28,7 @@ export default function Header() {
           >
             Brick Base{' '}
           </Link>
-          <Link href="/shop" data-test-id="products-link">
+          <Link href="/products" data-test-id="products-link">
             Shop
           </Link>
         </div>

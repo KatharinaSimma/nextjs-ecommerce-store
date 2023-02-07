@@ -3,7 +3,7 @@ import Product from './Product';
 
 export default function ProductPage({ params }) {
   const singleProduct = products.find((product) => {
-    return product.part === parseInt(params.productId);
+    return product.id === parseInt(params.productId);
   });
 
   // if (!singleProduct) {
