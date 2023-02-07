@@ -1,6 +1,7 @@
 {
   "name": "nextjs-ecommerce-store",
   "version": "0.1.0",
+  "license": "MIT",
   "private": true,
   "next": "13.1.7-canary.7",
   "scripts": {
