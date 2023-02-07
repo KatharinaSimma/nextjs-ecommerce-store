@@ -1,8 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { getStudents } from '../Database/products.ts';
+import { getStudents } from '../Database/students.ts';
 import basebrick from '../public/productImages/M3001.webp';
 import styles from './page.module.scss';
+
+export const metadata = {
+  title: 'Brick Base',
+  description: 'Home of the Brick Base',
+};
 
 export default async function Home() {
   const students = await getStudents();

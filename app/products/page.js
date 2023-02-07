@@ -3,6 +3,11 @@ import Link from 'next/link';
 import { products } from '../../Database/products';
 import styles from './page.module.scss';
 
+export const metadata = {
+  title: 'Products',
+  description: 'These are all the bricks we sell!',
+};
+
 export default function productsPage() {
   return (
     <>

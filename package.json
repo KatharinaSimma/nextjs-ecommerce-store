@@ -2,6 +2,7 @@
   "name": "nextjs-ecommerce-store",
   "version": "0.1.0",
   "private": true,
+  "next": "13.1.7-canary.7",
   "scripts": {
     "postinstall": "patch-package",
     "dev": "next dev",
