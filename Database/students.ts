@@ -2,6 +2,7 @@ import { cache } from 'react';
 import { sql } from './connect';
 
 type Student = {
+  id: number;
   name: string;
   age: number;
 };
