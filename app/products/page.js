@@ -4,8 +4,8 @@ import { getProducts } from '../../database/products';
 import styles from './page.module.scss';
 
 export const metadata = {
-  title: 'Products',
-  description: 'These are all the bricks we sell!',
+  title: 'Shop',
+  description: 'This is the product page where you find all the bricks we sell',
 };
 
 export default async function productsPage() {

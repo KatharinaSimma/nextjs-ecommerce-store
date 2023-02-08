@@ -4,8 +4,8 @@ import basebrick from '../public/productImages/M3001.webp';
 import styles from './page.module.scss';
 
 export const metadata = {
-  title: 'Brick Base',
-  description: 'Home of the Brick Base',
+  title: 'Home',
+  description: 'Home page of the Brick Base',
 };
 
 export default function Home() {
