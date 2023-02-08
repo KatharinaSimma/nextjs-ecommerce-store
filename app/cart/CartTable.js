@@ -3,11 +3,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { products } from '../../Database/products';
 import { getParsedCookie, setStringifiedCookie } from '../../utils/cookies';
 import styles from './page.module.scss';
 
-export function CartTable() {
+export const metadata = {
+  title: 'Cart',
+  description: 'This is your Brick Base cart.',
+};
+
+export function CartTable({ products }) {
   const [cookieValue, setCookieValue] = useState(false);
   let cartTotal = 0;
   let cartNumberOfItems = 0;
@@ -59,7 +63,7 @@ export function CartTable() {
               />
               <span>{product.name}</span>
               <span>Part no. {product.part}</span>
-              <span>{product.price.toFixed(2)}</span>
+              <span>{parseFloat(product.price).toFixed(2)}</span>
               <span data-test-id={`cart-product-quantity-${product.id}`}>
                 {product.amount}
               </span>

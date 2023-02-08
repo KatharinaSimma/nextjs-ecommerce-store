@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { products } from '../../../Database/products';
+import { getProductById } from '../../../database/products';
 import Product from './Product';
 
 export const dynamic = 'force-dynamic';
@@ -17,13 +17,10 @@ export const dynamic = 'force-dynamic';
 //   };
 // }
 
-export default function ProductPage({ params }) {
-  const singleProduct = products.find((product) => {
-    return product.id === parseInt(params.productId);
-  });
-
+export default async function ProductPage({ params }) {
+  const singleProduct = await getProductById(params.productId);
+  console.log('singleProduct', singleProduct);
   if (!singleProduct) {
-    // throw new Error('this action is not allowed with Error id: 213123123');
     notFound();
   }
 

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { products } from '../../Database/products';
+import { getProducts } from '../../database/products';
 import styles from './page.module.scss';
 
 export const metadata = {
@@ -8,7 +8,8 @@ export const metadata = {
   description: 'These are all the bricks we sell!',
 };
 
-export default function productsPage() {
+export default async function productsPage() {
+  const products = await getProducts();
   return (
     <>
       <h1 className={styles.heading}>Bricks!</h1>
