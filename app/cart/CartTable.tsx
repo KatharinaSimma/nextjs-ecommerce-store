@@ -120,12 +120,14 @@ export function CartTable(props: Props) {
         <span data-test-id="cart-total">{cartTotalCash.toFixed(2)}</span> €
       </div>
       <div>for {cartTotalNumberOfProducts} Bricks</div>
-      <button
-        disabled={cartNumberOfProducts === 0}
-        data-test-id="cart-checkout"
-      >
-        Go to checkout
-      </button>
+      <Link href="/checkout">
+        <button
+          disabled={cartNumberOfProducts === 0}
+          data-test-id="cart-checkout"
+        >
+          Go to checkout
+        </button>
+      </Link>
     </main>
   );
 }
