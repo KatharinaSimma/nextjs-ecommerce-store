@@ -40,10 +40,10 @@ export default function ProductPage({ singleProduct }) {
       <button
         data-test-id="product-add-to-cart"
         onClick={() => {
-          const cartItemsCookie = getParsedCookie('cartItemCookie');
+          const cartItemsCookie = getParsedCookie('cart');
           // if there is no cookie at all -> set new cookie
           if (!cartItemsCookie) {
-            setStringifiedCookie('cartItemCookie', [
+            setStringifiedCookie('cart', [
               { id: singleProduct.id, amount: productAmount },
             ]);
             return;
@@ -62,7 +62,7 @@ export default function ProductPage({ singleProduct }) {
             });
           }
           // update the cookie after transformation
-          setStringifiedCookie('cartItemCookie', cartItemsCookie);
+          setStringifiedCookie('cart', cartItemsCookie);
         }}
       >
         Add to cart

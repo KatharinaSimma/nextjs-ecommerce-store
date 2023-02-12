@@ -27,9 +27,8 @@ export function CartTable(props: Props) {
   let cartTotalNumberOfProducts = 0;
 
   useEffect(() => {
-    const valueOfTheCookie: CookieValue | undefined =
-      getParsedCookie('cartItemCookie');
-    if (getParsedCookie('cartItemCookie') === undefined) {
+    const valueOfTheCookie: CookieValue | undefined = getParsedCookie('cart');
+    if (getParsedCookie('cart') === undefined) {
       setCookieValue([]);
     }
 
@@ -105,7 +104,7 @@ export function CartTable(props: Props) {
                   }
                   console.log('foundItem', foundItem);
                   setCookieValue(newCookie);
-                  setStringifiedCookie('cartItemCookie', newCookie);
+                  setStringifiedCookie('cart', newCookie);
                 }}
               >
                 -1
@@ -129,7 +128,7 @@ export function CartTable(props: Props) {
                   }
 
                   setCookieValue(newCookie);
-                  setStringifiedCookie('cartItemCookie', newCookie);
+                  setStringifiedCookie('cart', newCookie);
                 }}
               >
                 Remove

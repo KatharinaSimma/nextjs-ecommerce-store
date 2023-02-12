@@ -8,7 +8,7 @@ import styles from './Header.module.scss';
 
 export default function Header() {
   // get the cookie from the server:
-  const cart = cookies().get('cartItemCookie');
+  const cart = cookies().get('cart');
   let cartItems = [];
   if (cart) {
     cartItems = JSON.parse(cart.value);
