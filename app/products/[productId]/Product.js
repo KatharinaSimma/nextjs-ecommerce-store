@@ -1,11 +1,13 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { getParsedCookie, setStringifiedCookie } from '../../../utils/cookies';
+import { setCartItem } from '../../../utils/cookies';
 import styles from './page.module.scss';
 
 export default function ProductPage({ singleProduct }) {
+  const router = useRouter();
   const [productAmount, setProductAmount] = useState(1);
 
   return (
@@ -40,29 +42,8 @@ export default function ProductPage({ singleProduct }) {
       <button
         data-test-id="product-add-to-cart"
         onClick={() => {
-          const cartItemsCookie = getParsedCookie('cart');
-          // if there is no cookie at all -> set new cookie
-          if (!cartItemsCookie) {
-            setStringifiedCookie('cart', [
-              { id: singleProduct.id, amount: productAmount },
-            ]);
-            return;
-          }
-          // find the right item in the cookie
-          const foundItem = cartItemsCookie.find((itemInCart) => {
-            return itemInCart.id === singleProduct.id;
-          });
-
-          if (foundItem) {
-            foundItem.amount += productAmount;
-          } else {
-            cartItemsCookie.push({
-              id: singleProduct.id,
-              amount: productAmount,
-            });
-          }
-          // update the cookie after transformation
-          setStringifiedCookie('cart', cartItemsCookie);
+          setCartItem(singleProduct.id, productAmount, 'add');
+          router.refresh();
         }}
       >
         Add to cart

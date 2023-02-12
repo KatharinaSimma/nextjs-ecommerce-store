@@ -2,13 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Product } from '../../database/products';
-import {
-  CookieValue,
-  getParsedCookie,
-  setStringifiedCookie,
-} from '../../utils/cookies';
+import { CookieValue, getParsedCookie, setCartItem } from '../../utils/cookies';
 import styles from './page.module.scss';
 
 export const metadata = {
@@ -21,6 +18,7 @@ type Props = {
 };
 
 export function CartTable(props: Props) {
+  const router = useRouter();
   const [cookieValue, setCookieValue] = useState<CookieValue | undefined>([]);
   let cartTotalCash = 0;
   let cartNumberOfProducts = 0;
@@ -86,25 +84,9 @@ export function CartTable(props: Props) {
                   if (!cookieValue) {
                     return;
                   }
-                  const newCookie = [...cookieValue];
-                  console.log('newCookie', newCookie);
-
-                  const foundItem = newCookie.find((itemInCart) => {
-                    return itemInCart.id === product.id;
-                  });
-
-                  if (foundItem) {
-                    foundItem.amount--;
-                    if (foundItem.amount < 0) {
-                      foundItem.amount = 0;
-                    }
-                  }
-                  if (!foundItem) {
-                    return;
-                  }
-                  console.log('foundItem', foundItem);
+                  const newCookie = setCartItem(product.id, -1, 'add');
                   setCookieValue(newCookie);
-                  setStringifiedCookie('cart', newCookie);
+                  router.refresh();
                 }}
               >
                 -1
@@ -115,20 +97,9 @@ export function CartTable(props: Props) {
                   if (!cookieValue) {
                     return;
                   }
-                  const newCookie: CookieValue = [...cookieValue];
-                  const foundItem = newCookie.find((itemInCart) => {
-                    return itemInCart.id === product.id;
-                  });
-
-                  if (foundItem) {
-                    foundItem.amount = 0;
-                  }
-                  if (!foundItem) {
-                    return;
-                  }
-
+                  const newCookie = setCartItem(product.id, 0, 'set');
                   setCookieValue(newCookie);
-                  setStringifiedCookie('cart', newCookie);
+                  router.refresh();
                 }}
               >
                 Remove
