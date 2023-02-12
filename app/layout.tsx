@@ -13,15 +13,18 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
+type Props = {
+  children: React.ReactNode;
+};
+
+export default function RootLayout(props: Props) {
   return (
     <html lang="en">
       <head />
       <body>
         <CookieBanner />
         <Header />
-
-        {children}
+        {props.children}
         <footer className={styles.footer}>copyright brick base 2023</footer>
       </body>
     </html>

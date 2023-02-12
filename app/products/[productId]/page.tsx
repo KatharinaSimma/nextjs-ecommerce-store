@@ -5,8 +5,12 @@ import Product from './Product';
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata(props) {
-  const singleProduct = await getProductById(props.params.productId);
+type Props = {
+  params: { productId: string };
+};
+
+export async function generateMetadata(props: Props) {
+  const singleProduct = await getProductById(parseInt(props.params.productId));
 
   if (!singleProduct) {
     return productNotFoundMetadata;
@@ -18,8 +22,8 @@ export async function generateMetadata(props) {
   };
 }
 
-export default async function ProductPage({ params }) {
-  const singleProduct = await getProductById(params.productId);
+export default async function ProductPage(props: Props) {
+  const singleProduct = await getProductById(parseInt(props.params.productId));
   if (!singleProduct) {
     notFound();
   }

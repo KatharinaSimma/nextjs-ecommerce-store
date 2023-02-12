@@ -3,7 +3,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { getParsedCookie, setStringifiedCookie } from '../../utils/cookies';
+import { Product } from '../../database/products';
+import {
+  CookieValue,
+  getParsedCookie,
+  setStringifiedCookie,
+} from '../../utils/cookies';
 import styles from './page.module.scss';
 
 export const metadata = {
@@ -11,24 +16,32 @@ export const metadata = {
   description: 'This is your Brick Base cart.',
 };
 
-export function CartTable({ products }) {
-  const [cookieValue, setCookieValue] = useState(false);
-  let cartTotal = 0;
-  let cartNumberOfItems = 0;
+type Props = {
+  products: Product[];
+};
+
+export function CartTable(props: Props) {
+  const [cookieValue, setCookieValue] = useState<CookieValue | undefined>([]);
+  let cartTotalCash = 0;
+  let cartNumberOfProducts = 0;
+  let cartTotalNumberOfProducts = 0;
 
   useEffect(() => {
-    const valueOfTheCookie = getParsedCookie('cartItemCookie');
-    const state = valueOfTheCookie === undefined ? false : valueOfTheCookie;
-    setCookieValue(state);
+    const valueOfTheCookie: CookieValue | undefined =
+      getParsedCookie('cartItemCookie');
+    if (getParsedCookie('cartItemCookie') === undefined) {
+      setCookieValue([]);
+    }
+
+    setCookieValue(valueOfTheCookie);
   }, []);
 
-  let cartItemsCookieParsed = [];
-
+  let cartItemsCookieParsed: CookieValue = [];
   if (cookieValue) {
     cartItemsCookieParsed = cookieValue;
   }
 
-  const cartItemsWithProductData = products.map((product) => {
+  const cartItemsWithProductData = props.products.map((product) => {
     const fullCartItem = { ...product, amount: 0 };
 
     const cartItem = cartItemsCookieParsed.find(
@@ -46,9 +59,11 @@ export function CartTable({ products }) {
       {cartItemsWithProductData.map((product) => {
         if (product.amount > 0) {
           // add to cart total
-          cartTotal = cartTotal + product.amount * product.price;
+          cartTotalCash = cartTotalCash + product.amount * product.price;
           // count the product
-          cartNumberOfItems = cartNumberOfItems + 1;
+          cartNumberOfProducts = cartNumberOfProducts + 1;
+          // count total number of bricks
+          cartTotalNumberOfProducts += product.amount;
           return (
             <div
               className={styles.productCard}
@@ -63,7 +78,7 @@ export function CartTable({ products }) {
               />
               <span>{product.name}</span>
               <span>Part no. {product.part}</span>
-              <span>{parseFloat(product.price).toFixed(2)}</span>
+              <span>{product.price}</span>
               <span data-test-id={`cart-product-quantity-${product.id}`}>
                 {product.amount}
               </span>
@@ -73,6 +88,8 @@ export function CartTable({ products }) {
                     return;
                   }
                   const newCookie = [...cookieValue];
+                  console.log('newCookie', newCookie);
+
                   const foundItem = newCookie.find((itemInCart) => {
                     return itemInCart.id === product.id;
                   });
@@ -83,6 +100,10 @@ export function CartTable({ products }) {
                       foundItem.amount = 0;
                     }
                   }
+                  if (!foundItem) {
+                    return;
+                  }
+                  console.log('foundItem', foundItem);
                   setCookieValue(newCookie);
                   setStringifiedCookie('cartItemCookie', newCookie);
                 }}
@@ -95,7 +116,7 @@ export function CartTable({ products }) {
                   if (!cookieValue) {
                     return;
                   }
-                  const newCookie = [...cookieValue];
+                  const newCookie: CookieValue = [...cookieValue];
                   const foundItem = newCookie.find((itemInCart) => {
                     return itemInCart.id === product.id;
                   });
@@ -103,6 +124,10 @@ export function CartTable({ products }) {
                   if (foundItem) {
                     foundItem.amount = 0;
                   }
+                  if (!foundItem) {
+                    return;
+                  }
+
                   setCookieValue(newCookie);
                   setStringifiedCookie('cartItemCookie', newCookie);
                 }}
@@ -114,7 +139,7 @@ export function CartTable({ products }) {
         }
         return null;
       })}
-      {cartNumberOfItems === 0 && (
+      {cartNumberOfProducts === 0 && (
         <div>
           ... is empty. Go shop some bricks{' '}
           <Link href="/shop">in the shop!</Link>
@@ -122,9 +147,13 @@ export function CartTable({ products }) {
       )}
       <div>
         Cart Total:{' '}
-        <span data-test-id="cart-total">{cartTotal.toFixed(2)}</span> €
+        <span data-test-id="cart-total">{cartTotalCash.toFixed(2)}</span> €
       </div>
-      <button disabled={cartNumberOfItems === 0} data-test-id="cart-checkout">
+      <div>for {cartTotalNumberOfProducts} Bricks</div>
+      <button
+        disabled={cartNumberOfProducts === 0}
+        data-test-id="cart-checkout"
+      >
         Go to checkout
       </button>
     </main>

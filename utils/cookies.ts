@@ -1,6 +1,11 @@
 import Cookies from 'js-cookie';
 
-export function getParsedCookie(key) {
+export type CookieValue = {
+  id: number;
+  amount: number;
+}[];
+
+export function getParsedCookie(key: string): CookieValue | undefined {
   const cookieValue = Cookies.get(key);
 
   if (!cookieValue) {
@@ -9,11 +14,11 @@ export function getParsedCookie(key) {
 
   try {
     return JSON.parse(cookieValue);
-  } catch (err) {
+  } catch (error) {
     return undefined;
   }
 }
 
-export function setStringifiedCookie(key, value) {
+export function setStringifiedCookie(key: string, value: CookieValue) {
   Cookies.set(key, JSON.stringify(value), { expires: 365 });
 }
