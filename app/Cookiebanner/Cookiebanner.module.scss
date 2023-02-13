@@ -1,0 +1,12 @@
+.cookiebannerContainer {
+  border: 1px solid black;
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 2rem);
+  margin: 1rem;
+  z-index: 1;
+  background-color: white;
+  min-height: 7rem;
+  padding: 2rem;
+  text-align: center;
+}

@@ -1,0 +1,26 @@
+.heading {
+  text-align: center;
+}
+
+.main {
+  width: 75vw;
+  margin: auto;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 20px;
+  justify-content: center;
+
+  .productCard {
+    border: 1px solid black;
+    border-radius: 2px;
+    width: 21rem;
+    padding: 1rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  }
+
+  h2 {
+    font-weight: bold;
+    font-size: 1.3em;
+  }
+}
