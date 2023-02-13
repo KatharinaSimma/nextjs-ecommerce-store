@@ -8,6 +8,8 @@ export const metadata = {
   description: 'This is the product page where you find all the bricks we sell',
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function productsPage() {
   const products = await getProducts();
   return (

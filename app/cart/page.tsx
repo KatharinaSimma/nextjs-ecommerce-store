@@ -8,6 +8,8 @@ export const metadata = {
     'This is the cart page where you find all the bricks you want to buy.',
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function cartPage() {
   const products = await getProducts();
   return (
