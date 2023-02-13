@@ -14,7 +14,9 @@ export default function Home() {
       <h1>Welcome to Brick Base</h1>
       <p>We sell base bricks.</p>
       <Image className={styles.image} src={basebrick} alt="a lego brick" />
-      <Link href="/products">Go to shop</Link>
+      <Link href="/products">
+        <button className="linkButton">Go to shop</button>
+      </Link>
     </div>
   );
 }
