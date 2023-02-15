@@ -38,8 +38,12 @@ export async function up(sql) {
 }
 
 export async function down(sql) {
-  await sql`
-    DELETE FROM
-      products
-  `;
+  for (const product of products) {
+    await sql`
+      DELETE FROM
+        products
+      WHERE
+        id = ${product.id}
+    `;
+  }
 }
