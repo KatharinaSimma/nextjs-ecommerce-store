@@ -14,8 +14,6 @@ export function getCartWithProductsData(
   products: Product[],
   cartCookieParsed: CookieValue,
 ) {
-  console.log('products', products);
-  console.log('cart', cartCookieParsed);
   const cartItemsWithProductData = products.map((product) => {
     const fullCartItem = { ...product, amount: 0 };
 
@@ -26,9 +24,27 @@ export function getCartWithProductsData(
     if (cartItem) {
       fullCartItem.amount = cartItem.amount;
     }
-
     return fullCartItem;
   });
-  console.log('cartItemsWithProductData', cartItemsWithProductData);
   return cartItemsWithProductData;
+}
+
+export function getCartTotal(cartWithProductsData: CartWithProductData[]) {
+  const sumOfAllItems: number = cartWithProductsData.reduce(
+    (accumulator, currentValue) => {
+      return accumulator + currentValue.price * currentValue.amount;
+    },
+    0,
+  );
+  return Number(sumOfAllItems.toFixed(2));
+}
+
+export function getTotalNumberOfItems(cartCookieParsed: CookieValue) {
+  const totalAmountOfCartItems: number = cartCookieParsed.reduce(
+    (accumulator, currentValue) => {
+      return accumulator + currentValue.amount;
+    },
+    0,
+  );
+  return totalAmountOfCartItems;
 }

@@ -6,7 +6,11 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Product } from '../../database/products';
 import { CookieValue, getParsedCookie, setCartItem } from '../../utils/cookies';
-import { getCartWithProductsData } from '../../utils/dataStructures';
+import {
+  getCartTotal,
+  getCartWithProductsData,
+  getTotalNumberOfItems,
+} from '../../utils/dataStructures';
 import styles from './page.module.scss';
 
 export const metadata = {
@@ -21,9 +25,7 @@ type Props = {
 export function CartTable(props: Props) {
   const router = useRouter();
   const [cookieValue, setCookieValue] = useState<CookieValue | undefined>([]);
-  let cartTotalCash = 0;
   let cartNumberOfProducts = 0;
-  let cartTotalNumberOfProducts = 0;
 
   useEffect(() => {
     const valueOfTheCookie: CookieValue | undefined = getParsedCookie('cart');
@@ -43,16 +45,16 @@ export function CartTable(props: Props) {
     cartItemsCookieParsed,
   );
 
+  const cartTotal: number = getCartTotal(cartItemsWithProductData);
+
+  const totalNumberOfItems = getTotalNumberOfItems(cartItemsCookieParsed);
+
   return (
     <main className={styles.main}>
       {cartItemsWithProductData.map((product) => {
         if (product.amount > 0) {
-          // add to cart total
-          cartTotalCash = cartTotalCash + product.amount * product.price;
           // count the product
           cartNumberOfProducts = cartNumberOfProducts + 1;
-          // count total number of bricks
-          cartTotalNumberOfProducts += product.amount;
           return (
             <div
               className={styles.productCard}
@@ -108,10 +110,9 @@ export function CartTable(props: Props) {
         </div>
       )}
       <div>
-        Cart Total:{' '}
-        <span data-test-id="cart-total">{cartTotalCash.toFixed(2)}</span> €
+        Cart Total: <span data-test-id="cart-total">{cartTotal}</span> €
       </div>
-      <div>for {cartTotalNumberOfProducts} Bricks</div>
+      <div>for {totalNumberOfItems} Bricks</div>
       <Link href="/checkout">
         <button
           disabled={cartNumberOfProducts === 0}

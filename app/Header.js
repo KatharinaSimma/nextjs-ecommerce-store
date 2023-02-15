@@ -1,11 +1,19 @@
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
-import CartCount from './CartCount';
+import { getTotalNumberOfItems } from '../utils/dataStructures';
 import styles from './Header.module.scss';
 
 export default function Header() {
+  const cart = cookies().get('cart');
+  let cartItems = [];
+  if (cart) {
+    cartItems = JSON.parse(cart.value);
+  }
+
+  const totalAmountOfCartItems = getTotalNumberOfItems(cartItems);
   return (
     <header className={styles.header}>
       <nav>
@@ -35,7 +43,7 @@ export default function Header() {
         </div>
         <Link href="/cart" data-test-id="cart-link">
           <FontAwesomeIcon icon={faCartShopping} className={styles.icon} />
-          (<CartCount />)
+          <span data-test-id="cart-count">{totalAmountOfCartItems}</span>
         </Link>
       </nav>
     </header>
