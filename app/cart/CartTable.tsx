@@ -6,6 +6,11 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Product } from '../../database/products';
 import { CookieValue, getParsedCookie, setCartItem } from '../../utils/cookies';
+import {
+  getCartTotal,
+  getCartWithProductsData,
+  getTotalNumberOfItems,
+} from '../../utils/dataStructures';
 import styles from './page.module.scss';
 
 export const metadata = {
@@ -20,16 +25,13 @@ type Props = {
 export function CartTable(props: Props) {
   const router = useRouter();
   const [cookieValue, setCookieValue] = useState<CookieValue | undefined>([]);
-  let cartTotalCash = 0;
   let cartNumberOfProducts = 0;
-  let cartTotalNumberOfProducts = 0;
 
   useEffect(() => {
     const valueOfTheCookie: CookieValue | undefined = getParsedCookie('cart');
     if (getParsedCookie('cart') === undefined) {
       setCookieValue([]);
     }
-
     setCookieValue(valueOfTheCookie);
   }, []);
 
@@ -38,29 +40,21 @@ export function CartTable(props: Props) {
     cartItemsCookieParsed = cookieValue;
   }
 
-  const cartItemsWithProductData = props.products.map((product) => {
-    const fullCartItem = { ...product, amount: 0 };
+  const cartItemsWithProductData = getCartWithProductsData(
+    props.products,
+    cartItemsCookieParsed,
+  );
 
-    const cartItem = cartItemsCookieParsed.find(
-      (cookieItem) => product.id === cookieItem.id,
-    );
-    if (cartItem) {
-      fullCartItem.amount = cartItem.amount;
-    }
+  const cartTotal: number = getCartTotal(cartItemsWithProductData);
 
-    return fullCartItem;
-  });
+  const totalNumberOfItems = getTotalNumberOfItems(cartItemsCookieParsed);
 
   return (
     <main className={styles.main}>
       {cartItemsWithProductData.map((product) => {
         if (product.amount > 0) {
-          // add to cart total
-          cartTotalCash = cartTotalCash + product.amount * product.price;
           // count the product
           cartNumberOfProducts = cartNumberOfProducts + 1;
-          // count total number of bricks
-          cartTotalNumberOfProducts += product.amount;
           return (
             <div
               className={styles.productCard}
@@ -80,6 +74,7 @@ export function CartTable(props: Props) {
                 {product.amount}
               </span>
               <button
+                data-test-id={`cart-product-minusOne-${product.id}`}
                 onClick={() => {
                   if (!cookieValue) {
                     return;
@@ -116,10 +111,9 @@ export function CartTable(props: Props) {
         </div>
       )}
       <div>
-        Cart Total:{' '}
-        <span data-test-id="cart-total">{cartTotalCash.toFixed(2)}</span> €
+        Cart Total: <span data-test-id="cart-total">{cartTotal}</span> €
       </div>
-      <div>for {cartTotalNumberOfProducts} Bricks</div>
+      <div>for {totalNumberOfItems} Bricks</div>
       <Link href="/checkout">
         <button
           disabled={cartNumberOfProducts === 0}

@@ -1,7 +1,11 @@
 import { cookies } from 'next/headers';
 import { getProducts } from '../../database/products';
 import { CookieValue } from '../../utils/cookies';
-import CartCount from '../CartCount';
+import {
+  getCartTotal,
+  getCartWithProductsData,
+  getTotalNumberOfItems,
+} from '../../utils/dataStructures';
 import CheckoutForm from './checkoutForm';
 
 export const metadata = {
@@ -21,35 +25,21 @@ export default async function CheckoutPage() {
     cartCookieParsed = JSON.parse(cartCookie.value);
   }
 
-  const cartItemsWithProductData = products.map((product) => {
-    const fullCartItem = { ...product, amount: 0 };
-
-    const cartItem = cartCookieParsed.find(
-      (cookieItem) => product.id === cookieItem.id,
-    );
-    if (cartItem) {
-      fullCartItem.amount = cartItem.amount;
-    }
-
-    return fullCartItem;
-  });
-
-  const sumOfAllItems = cartItemsWithProductData.reduce(
-    (accumulator, currentValue) => {
-      return accumulator + currentValue.price * currentValue.amount;
-    },
-    0,
+  const cartWithProductsData = getCartWithProductsData(
+    products,
+    cartCookieParsed,
   );
+
+  const cartTotal: number = getCartTotal(cartWithProductsData);
+  const totalAmountOfCartItems = getTotalNumberOfItems(cartCookieParsed);
 
   return (
     <div>
       <h1>Checkout</h1>
       <p>Review your products and add your invoice data.</p>
       <h3>Order Details</h3>
-      <p>
-        Number of Items: <CartCount />
-      </p>
-      <p>Total Price: {sumOfAllItems.toFixed(2)}€</p>
+      <p>Number of Items: {totalAmountOfCartItems}</p>
+      <p>Total Price: {cartTotal}€</p>
       <hr />
       <CheckoutForm />
     </div>

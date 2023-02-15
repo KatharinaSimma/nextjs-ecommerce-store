@@ -54,6 +54,7 @@ export default function ProductPage({ singleProduct }) {
           </span>
           <button
             className="smallNumberButton"
+            aria-label="add one item"
             onClick={() => setProductAmount(productAmount + 1)}
           >
             <FontAwesomeIcon icon={faPlus} />
