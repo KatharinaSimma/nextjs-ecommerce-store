@@ -1,6 +1,9 @@
-'use-client';
+'use client';
+import { useRouter } from 'next/navigation';
+import { deleteCookie } from '../../utils/cookies';
 
 export default function CheckoutForm() {
+  const router = useRouter();
   return (
     <div>
       <h2>Form</h2>
@@ -94,7 +97,17 @@ export default function CheckoutForm() {
         />
         <br />
 
-        <button data-test-id="checkout-confirm-order">Confirm Order</button>
+        <button
+          data-test-id="checkout-confirm-order"
+          onClick={(event) => {
+            event.preventDefault();
+            deleteCookie('cart');
+            router.refresh();
+            return router.push('/thankyou');
+          }}
+        >
+          Confirm Order
+        </button>
       </form>
     </div>
   );

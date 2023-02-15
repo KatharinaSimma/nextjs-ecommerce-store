@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Product } from '../../database/products';
 import { CookieValue, getParsedCookie, setCartItem } from '../../utils/cookies';
+import { getCartWithProductsData } from '../../utils/dataStructures';
 import styles from './page.module.scss';
 
 export const metadata = {
@@ -29,7 +30,6 @@ export function CartTable(props: Props) {
     if (getParsedCookie('cart') === undefined) {
       setCookieValue([]);
     }
-
     setCookieValue(valueOfTheCookie);
   }, []);
 
@@ -38,18 +38,10 @@ export function CartTable(props: Props) {
     cartItemsCookieParsed = cookieValue;
   }
 
-  const cartItemsWithProductData = props.products.map((product) => {
-    const fullCartItem = { ...product, amount: 0 };
-
-    const cartItem = cartItemsCookieParsed.find(
-      (cookieItem) => product.id === cookieItem.id,
-    );
-    if (cartItem) {
-      fullCartItem.amount = cartItem.amount;
-    }
-
-    return fullCartItem;
-  });
+  const cartItemsWithProductData = getCartWithProductsData(
+    props.products,
+    cartItemsCookieParsed,
+  );
 
   return (
     <main className={styles.main}>

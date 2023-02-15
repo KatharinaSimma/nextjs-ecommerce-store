@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { getProducts } from '../../database/products';
 import { CookieValue } from '../../utils/cookies';
+import { getCartWithProductsData } from '../../utils/dataStructures';
 import CartCount from '../CartCount';
 import CheckoutForm from './checkoutForm';
 
@@ -21,20 +22,12 @@ export default async function CheckoutPage() {
     cartCookieParsed = JSON.parse(cartCookie.value);
   }
 
-  const cartItemsWithProductData = products.map((product) => {
-    const fullCartItem = { ...product, amount: 0 };
+  const cartWithProductsData = getCartWithProductsData(
+    products,
+    cartCookieParsed,
+  );
 
-    const cartItem = cartCookieParsed.find(
-      (cookieItem) => product.id === cookieItem.id,
-    );
-    if (cartItem) {
-      fullCartItem.amount = cartItem.amount;
-    }
-
-    return fullCartItem;
-  });
-
-  const sumOfAllItems = cartItemsWithProductData.reduce(
+  const sumOfAllItems: number = cartWithProductsData.reduce(
     (accumulator, currentValue) => {
       return accumulator + currentValue.price * currentValue.amount;
     },
