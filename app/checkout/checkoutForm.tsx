@@ -4,6 +4,7 @@ import { deleteCookie } from '../../utils/cookies';
 
 export default function CheckoutForm() {
   const router = useRouter();
+
   return (
     <div>
       <h2>Form</h2>
@@ -61,7 +62,7 @@ export default function CheckoutForm() {
 
         <label htmlFor="country">Country</label>
         <input
-          data-test-id="checkout-postal-code"
+          data-test-id="checkout-country"
           id="country"
           name="country"
           required
@@ -99,11 +100,9 @@ export default function CheckoutForm() {
 
         <button
           data-test-id="checkout-confirm-order"
-          onClick={(event) => {
-            event.preventDefault();
-            deleteCookie('cart');
+          onClick={() => {
             router.refresh();
-            return router.push('/thankyou');
+            deleteCookie('cart');
           }}
         >
           Confirm Order

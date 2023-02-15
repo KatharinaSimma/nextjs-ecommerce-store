@@ -18,22 +18,23 @@ export default async function productsPage() {
       <main className={styles.main}>
         {products.map((product) => {
           return (
-            <div className={styles.productCard} key={product.id}>
-              <h2>{product.name}</h2>
-              <p>Part no. {product.part}</p>
-              <Image
-                src={`/productImages/${product.image}`}
-                alt={product.name}
-                width="150"
-                height="150"
-              />
-              <Link
-                data-test-id={`product-${product.id}`}
-                href={`/products/${product.id}`}
-              >
+            <Link
+              data-test-id={`product-${product.id}`}
+              href={`/products/${product.id}`}
+              key={product.id}
+            >
+              <div className={styles.productCard}>
+                <h2>{product.name}</h2>
+                <p>Part no. {product.part}</p>
+                <Image
+                  src={`/productImages/${product.image}`}
+                  alt={product.name}
+                  width="150"
+                  height="150"
+                />
                 <button className="linkButton">Details</button>
-              </Link>
-            </div>
+              </div>
+            </Link>
           );
         })}
       </main>
