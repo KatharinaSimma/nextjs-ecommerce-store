@@ -1,5 +1,5 @@
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -42,8 +42,8 @@ export default function Header() {
           </Link>
         </div>
         <Link href="/cart" data-test-id="cart-link">
-          <FontAwesomeIcon icon={faCartShopping} className={styles.icon} />
-          <span data-test-id="cart-count">{totalAmountOfCartItems}</span>
+          {/* <FontAwesomeIcon icon={faCartShopping} className={styles.icon} /> */}
+          Cart (<span data-test-id="cart-count">{totalAmountOfCartItems}</span>)
         </Link>
       </nav>
     </header>

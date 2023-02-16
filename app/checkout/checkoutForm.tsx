@@ -9,7 +9,7 @@ export default function CheckoutForm() {
     <div>
       <h2>Form</h2>
       <h3>Invoice and delivery data</h3>
-      <form action="/thankyou">
+      <form action="/thankyou" method="post">
         <label htmlFor="firstName">First Name</label>
         <input
           data-test-id="checkout-first-name"

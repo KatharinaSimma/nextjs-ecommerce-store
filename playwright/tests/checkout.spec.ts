@@ -37,5 +37,5 @@ test('checkout flow', async ({ page }) => {
   await expect(page.getByTestId('checkout-confirm-order')).toBeVisible();
   await page.getByTestId('checkout-confirm-order').click();
 
-  await expect(page).toHaveURL(/http:\/\/localhost:3000\/thankyou.*/);
+  await expect(page).toHaveURL('http://localhost:3000/thankyou');
 });

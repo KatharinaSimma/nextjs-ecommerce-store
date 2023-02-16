@@ -1,11 +1,11 @@
 'use client';
 
-import {
-  faAngleLeft,
-  faMinus,
-  faPlus,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import {
+//   faAngleLeft,
+//   faMinus,
+//   faPlus,
+// } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -21,8 +21,8 @@ export default function ProductPage({ singleProduct }) {
     <div className={styles.singleProductContainer}>
       <nav className={styles.productNav}>
         <Link href="/products">
-          <FontAwesomeIcon icon={faAngleLeft} />
-          Back to all products
+          {/* <FontAwesomeIcon icon={faAngleLeft} /> */}
+          <span> Back to all products</span>
         </Link>
       </nav>
       <main className={styles.main}>
@@ -47,7 +47,8 @@ export default function ProductPage({ singleProduct }) {
             disabled={productAmount <= 1}
             onClick={() => setProductAmount(productAmount - 1)}
           >
-            <FontAwesomeIcon icon={faMinus} />
+            {' '}
+            -{/*  <FontAwesomeIcon icon={faMinus} /> */}
           </button>
           <span>
             <span data-test-id="product-quantity">{productAmount}</span>
@@ -57,7 +58,8 @@ export default function ProductPage({ singleProduct }) {
             aria-label="add one item"
             onClick={() => setProductAmount(productAmount + 1)}
           >
-            <FontAwesomeIcon icon={faPlus} />
+            {' '}
+            +{/* <FontAwesomeIcon icon={faPlus} /> */}
           </button>
           <button
             className="linkButton"
