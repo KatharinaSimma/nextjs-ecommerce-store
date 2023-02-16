@@ -1,3 +1,5 @@
+@import 'globalVariables.module.scss';
+
 *,
 *::before,
 *::after {
@@ -9,7 +11,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Dank Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo,
     Courier, monospace;
-  font-size: 21px;
+  font-size: 1.2rem;
   color: var(--main-text-color);
   line-height: 1.5;
   margin: 0;
@@ -20,34 +22,44 @@ body {
 /////////////
 
 .linkButton {
-  border: 2px solid grey;
-  border-radius: 3px;
+  border: 1px solid black;
+  border-radius: 2px;
   background-color: transparent;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   padding: 0.5rem 1rem;
-  margin: 1rem 1rem;
+  // margin: 1rem 1rem;
 
   &:hover {
     cursor: pointer;
-    border: 2px solid black;
+    border: 1px solid black;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
       rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     // background-color: rgb(246, 245, 245);
   }
 }
 
+@media (max-width: $breakpointPhone) {
+  .linkButton {
+    font-size: 1rem;
+  }
+}
+
 .smallNumberButton {
-  border: 2px solid grey;
-  border-radius: 3px;
+  border: none;
   background-color: transparent;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  margin: 1rem 1rem;
+  padding: 0;
+  margin: 0;
+
+  .iconBox {
+    height: 1.3rem;
+    width: 1.3rem;
+    text-align: center;
+    vertical-align: bottom;
+    padding: 0;
+    margin: 0;
+  }
 
   &:hover:not([disabled]) {
     cursor: pointer;
-    border: 2px solid black;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-      rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   }
 }

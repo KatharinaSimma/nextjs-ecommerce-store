@@ -107,7 +107,7 @@ export function CartTable(props: Props) {
       {cartNumberOfProducts === 0 && (
         <div>
           ... is empty. Go shop some bricks{' '}
-          <Link href="/shop">in the shop!</Link>
+          <Link href="/products">in the shop!</Link>
         </div>
       )}
       <div>
