@@ -58,7 +58,7 @@ export default function ProductPage({ singleProduct }) {
           </p>
 
           <div className={styles.productCountBlock}>
-            {/* <button
+            <button
               className="smallNumberButton"
               disabled={productAmount <= 1}
               onClick={() => setProductAmount(productAmount - 1)}
@@ -71,21 +71,19 @@ export default function ProductPage({ singleProduct }) {
                   />
                 </svg>
               </div>
-            </button> */}
+            </button>
 
             <input
               type="number"
               data-test-id="product-quantity"
               className={styles.productAmount}
               value={productAmount}
+              readOnly
               min={0}
               max={100}
-              onChange={(event) =>
-                setProductAmount(Number(event.currentTarget.value))
-              }
             />
 
-            {/* <button
+            <button
               className="smallNumberButton"
               aria-label="add one item"
               onClick={() => setProductAmount(productAmount + 1)}
@@ -98,7 +96,7 @@ export default function ProductPage({ singleProduct }) {
                   />
                 </svg>
               </div>
-            </button> */}
+            </button>
           </div>
           <button
             className="linkButton"
