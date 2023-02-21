@@ -65,10 +65,8 @@ test('Add to cart, change quantity and remove from cart', async ({ page }) => {
 
   // reduce amount by one
   await expect(page.getByRole('button', { name: '-1' })).toHaveCount(2);
-  await expect(
-    page.locator('[data-test-id^="cart-product-minusOne-"]'),
-  ).toHaveCount(2);
-  await page.getByTestId('cart-product-minusOne-1').click({ clickCount: 2 });
+  await expect(page.locator('[data-test-id^="minusOne-"]')).toHaveCount(2);
+  await page.getByTestId('minusOne-1').click({ clickCount: 2 });
 
   // check if product counts updates in header
   await expect(page.getByTestId('cart-count')).toBeVisible();

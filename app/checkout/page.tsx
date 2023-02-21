@@ -39,7 +39,7 @@ export default async function CheckoutPage() {
       <p>Review your products and add your invoice data.</p>
       <h3>Order Details</h3>
       <p>Number of Items: {totalAmountOfCartItems}</p>
-      <p>Total Price: {cartTotal}€</p>
+      <p>Total Price: {cartTotal.toFixed(2)}€</p>
       <hr />
       <CheckoutForm />
     </div>

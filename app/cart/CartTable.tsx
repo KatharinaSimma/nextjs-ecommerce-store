@@ -74,6 +74,7 @@ export function CartTable(props: Props) {
                 {product.amount}
               </span>
               <button
+                data-test-id={`minusOne-${product.id}`}
                 onClick={() => {
                   if (!cookieValue) {
                     return;
@@ -110,7 +111,8 @@ export function CartTable(props: Props) {
         </div>
       )}
       <div>
-        Cart Total: <span data-test-id="cart-total">{cartTotal}</span> €
+        Cart Total:{' '}
+        <span data-test-id="cart-total">{cartTotal.toFixed(2)}</span> €
       </div>
       <div>for {totalNumberOfItems} Bricks</div>
       <Link href="/checkout">
