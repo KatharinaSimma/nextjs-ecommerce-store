@@ -41,8 +41,8 @@ export default function Header() {
         </div>
         <Link href="/cart" data-test-id="cart-link">
           Cart
+          <span data-test-id="cart-count"> ({totalAmountOfCartItems})</span>
         </Link>
-        <span data-test-id="cart-count">{totalAmountOfCartItems}</span>
       </nav>
     </header>
   );

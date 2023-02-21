@@ -74,7 +74,6 @@ export function CartTable(props: Props) {
                 {product.amount}
               </span>
               <button
-                data-test-id={`cart-product-minusOne-${product.id}`}
                 onClick={() => {
                   if (!cookieValue) {
                     return;
