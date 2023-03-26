@@ -78,7 +78,7 @@ export default function ProductPage({ singleProduct }) {
               data-test-id="product-quantity"
               className={styles.productAmount}
               value={productAmount}
-              readOnly
+              // readOnly
               min={0}
               max={100}
             />

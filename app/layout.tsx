@@ -1,5 +1,5 @@
 import './global.scss';
-import CookieBanner from './Cookiebanner/Cookiebanner';
+// import CookieBanner from './Cookiebanner/Cookiebanner';
 import Header from './Header';
 import styles from './layout.module.scss';
 
@@ -22,8 +22,8 @@ export default function RootLayout(props: Props) {
     <html lang="en">
       <head />
       <body>
+        {/* <CookieBanner /> */}
         <Header />
-        <CookieBanner />
         {props.children}
         <footer className={styles.footer}>copyright brick base 2023</footer>
       </body>
