@@ -58,7 +58,7 @@ export function CartTable(props: Props) {
           return (
             <div
               className={styles.productCard}
-              key={product.id}
+              key={`product-id-${product.id}`}
               data-test-id={`cart-product-${product.id}`}
             >
               <Image

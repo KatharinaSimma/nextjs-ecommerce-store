@@ -53,10 +53,7 @@ export default function ProductPage({ singleProduct }) {
             {singleProduct.part} <br />
             (Official Part No.)
           </span>
-          <p>
-            <span data-test-id="product-price">{singleProduct.price}</span>€
-          </p>
-
+          <span data-test-id="product-price">{singleProduct.price}</span>€
           <div className={styles.productCountBlock}>
             <button
               className="smallNumberButton"
@@ -78,7 +75,9 @@ export default function ProductPage({ singleProduct }) {
               data-test-id="product-quantity"
               className={styles.productAmount}
               value={productAmount}
-              // readOnly
+              onChange={(event) =>
+                setProductAmount(parseInt(event.currentTarget.value))
+              }
               min={0}
               max={100}
             />
